@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 이 파일에 있는 SQL문들을 실행할 때 사용할  -->
+<!-- 인터페이스의 이름(패키지명포함)을 namespace 속성값으로 지정 -->
+<mapper namespace="com.example.demo.member.MemberDao">
+<!-- SQL문의 종류에 맞는 태그를 사용하여 MyBatis를 통해서 실행할 SQL문들을 등록 -->
+<!-- SQL문을 실행할 때 사용할 메서드명을 SQL문의 id 속성값으로 설정  -->
+  <select id="selectMember" resultType="MemberVo">
+	SELECT mem_id, mem_pass, mem_name, mem_point
+	FROM member
+	WHERE mem_id = #{memId}
+  </select>
+  <select id="selectMemberList" resultType="MemberVo" >
+	SELECT mem_id, mem_name, mem_point
+	FROM member
+	ORDER BY mem_id 
+  </select>
+  <insert id="insertMember">
+	INSERT INTO member
+	    (mem_id, mem_pass, mem_name, mem_point)
+	VALUES
+	    (#{memId}, #{memPass}, #{memName}, #{memPoint})
+<!-- 인자로 받은 객체의 속성(변수)값들을 #중괄호 표현으로 SQL내에 주입 -->
+  </insert>
+  <update id="updateMember">
+	UPDATE member
+	SET
+	    mem_name = #{memName}, 
+	    mem_point = #{memPoint}
+	WHERE mem_id = #{memId}
+  </update>
+  <delete id="deleteMember">
+	DELETE FROM member
+	WHERE mem_id = #{memId}
+  </delete>
+  <select id="selectloginMember" resultType="MemberVo">
+	SELECT mem_id, mem_name, mem_point
+	FROM member
+	WHERE mem_id = #{memId}
+	and mem_pass = #{memPass}
+  </select>
+</mapper>
+

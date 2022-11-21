@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 현재 mapper 파일의 SQL문들을 실행할 DAO 인터페이스의 -->
+<!-- 이름(패키지명포함)을 namespace 속성값으로 지정   -->
+<mapper namespace="com.example.demo.bbs.BbsDao">
+<!-- SQL문의 종류에 맞는 태그를 사용하여 MyBatis를 통해서 실행할 SQL문들을 등록 -->
+<!-- SQL문을 실행할 메서드이름을 SQL문의 id 속성값으로 설정 -->
+  <select id="selectBbs" resultType="BbsVo">
+	SELECT bbs_no, bbs_title, bbs_content, bbs_writer, bbs_reg_date
+	FROM bbs
+	WHERE bbs_no = #{bbsNo}
+  </select>
+  <select id="selectBbsList" resultType="BbsVo" >
+	SELECT bbs_no, bbs_title, bbs_writer, bbs_reg_date
+	FROM bbs
+	ORDER BY bbs_reg_date DESC 
+  </select>
+  <insert id="insertBbs">
+	INSERT INTO bbs
+	    (bbs_title, bbs_content, bbs_writer)
+	VALUES
+	    ( #{bbsTitle} , #{bbsContent}, #{bbsWriter} )
+<!-- 인자로 받은 객체의 속성(변수)값을 # 표기법을 사용하여  -->
+<!-- SQL 문 내부에 사용 가능 -->
+  </insert>
+  <update id="updateBbs">
+	UPDATE bbs
+	SET
+	    bbs_title = #{bbsTitle}, 
+	    bbs_content = #{bbsContent}
+	WHERE bbs_no = #{bbsNo}
+  </update>
+  <delete id="deleteBbs">
+	DELETE FROM bbs
+	WHERE bbs_no = #{bbsNo}
+  </delete>
+</mapper>
+
